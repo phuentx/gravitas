@@ -32,66 +32,32 @@
 
         h1, h2, h3, .google-font { font-family: 'Google Sans', 'Roboto', sans-serif; }
 
-        /* --- SCROLLBAR HIDDEN BUT FUNCTIONAL --- */
-        * { 
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none; /* IE/Edge */
-        }
-        *::-webkit-scrollbar { 
-            width: 0px; 
-            background: transparent; 
-            display: none;
-        }
+        /* No Scrollbars */
+        * { scrollbar-width: none; -ms-overflow-style: none; }
+        *::-webkit-scrollbar { width: 0px; background: transparent; display: none; }
 
-        /* Animations */
         .fade-in { animation: fadeUp 0.5s cubic-bezier(0.2, 0, 0, 1) forwards; opacity: 0; transform: translateY(15px); }
         @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
-        .pulse-text { animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
-
-        /* Code Blocks - Gemini Style */
-        .gemini-code-container {
-            border-radius: 16px; overflow: hidden; margin: 20px 0;
-            border: 1px solid #444746; background: #1e1f20;
-        }
-        .gemini-code-header {
-            background: #2f3033; padding: 10px 18px; display: flex; justify-content: space-between;
-            align-items: center; border-bottom: 1px solid #444746; font-size: 13px; color: #e3e3e3;
-            font-family: 'Google Sans', sans-serif; font-weight: 500;
-        }
-        .gemini-code-btn {
-            display: flex; align-items: center; gap: 6px; color: #e3e3e3; cursor: pointer;
-            padding: 6px 10px; border-radius: 6px; transition: background 0.2s;
-        }
+        /* Code Blocks */
+        .gemini-code-container { border-radius: 16px; overflow: hidden; margin: 20px 0; border: 1px solid #444746; background: #1e1f20; }
+        .gemini-code-header { background: #2f3033; padding: 10px 18px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #444746; font-size: 13px; color: #e3e3e3; font-family: 'Google Sans', sans-serif; font-weight: 500; }
+        .gemini-code-btn { display: flex; align-items: center; gap: 6px; color: #e3e3e3; cursor: pointer; padding: 6px 10px; border-radius: 6px; transition: background 0.2s; }
         .gemini-code-btn:hover { background: rgba(255,255,255,0.1); }
         pre { background: #1e1f20; padding: 20px; color: #e3e3e3; overflow-x: auto; font-family: 'Consolas', monospace; font-size: 0.95rem; margin: 0; }
         .code-keyword { color: #ffab91; } .code-function { color: #81c784; } 
 
-        /* Feed Post Styling */
-        .post-card { 
-            background: white; border: 1px solid var(--outline); border-radius: 24px;
-            transition: box-shadow 0.3s ease, border-color 0.3s ease;
-        }
+        .post-card { background: white; border: 1px solid var(--outline); border-radius: 24px; transition: box-shadow 0.3s ease, border-color 0.3s ease; }
         .post-card:hover { border-color: #d3e3fd; box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
 
-        /* --- LAYOUT LOGIC --- */
         .feed-panel { flex: 1; min-width: 0; order: 1; transition: all 0.5s cubic-bezier(0.2, 0, 0, 1); border-radius: 28px; border: 1px solid transparent; }
         .ai-panel { width: 440px; flex-shrink: 0; order: 2; transition: all 0.5s cubic-bezier(0.2, 0, 0, 1); border-radius: 28px; border: 1px solid transparent; }
-
-        /* Swapped State */
-        .swapped .feed-panel { flex: none; width: 360px; order: 2; opacity: 0.8; }
+        
+        .swapped .feed-panel { flex: none; width: 360px; order: 2; opacity: 0.8; } 
         .swapped .feed-panel .code-preview { display: none; } 
         .swapped .ai-panel { flex: 1; width: auto; order: 1; border: 2px solid #a8c7fa; box-shadow: 0 8px 30px rgba(11, 87, 208, 0.1); }
         
-        /* Modals & Overlays */
-        .notebook-overlay {
-            position: fixed; bottom: 0; left: 50%; width: 96%; max-width: 1200px; height: 92vh;
-            background: white; border-top-left-radius: 32px; border-top-right-radius: 32px;
-            box-shadow: 0 -10px 40px rgba(0,0,0,0.1); z-index: 100;
-            transform: translate(-50%, 110%); transition: transform 0.4s cubic-bezier(0.2, 0, 0, 1);
-            display: flex; flex-direction: column;
-        }
+        .notebook-overlay { position: fixed; bottom: 0; left: 50%; width: 96%; max-width: 1200px; height: 92vh; background: white; border-top-left-radius: 32px; border-top-right-radius: 32px; box-shadow: 0 -10px 40px rgba(0,0,0,0.1); z-index: 100; transform: translate(-50%, 110%); transition: transform 0.4s cubic-bezier(0.2, 0, 0, 1); display: flex; flex-direction: column; }
         .notebook-active { transform: translate(-50%, 0); }
         .backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.3); backdrop-filter: blur(4px); z-index: 90; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
         .backdrop.active { opacity: 1; pointer-events: auto; }
@@ -99,76 +65,35 @@
         .toast { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%) translateY(20px); background: #303134; color: #f2f2f2; padding: 14px 28px; border-radius: 48px; font-size: 15px; opacity: 0; pointer-events: none; transition: all 0.3s; z-index: 200; display: flex; align-items: center; gap: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
         .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
         
-        /* UI Elements */
-        .icon-btn {
-            width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            transition: background 0.2s; cursor: pointer; color: #444746; 
-        }
+        .icon-btn { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background 0.2s; cursor: pointer; color: #444746; }
         .icon-btn:hover { background-color: #f0f4f9; color: #1f1f1f; }
         .icon-btn.active { background-color: #c2e7ff; color: #001d35; }
         
         .hashtag { color: #0b57d0; font-weight: 500; cursor: pointer; padding: 2px 6px; border-radius: 6px; }
         .hashtag:hover { background: #e8f0fe; }
 
-        /* GEMINI REAL TEXT BOX */
-        .gemini-input-wrapper {
-            background: #f0f4f9;
-            border-radius: 36px;
-            padding: 8px 8px 8px 16px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            transition: all 0.2s ease-in-out;
-            border: 1px solid transparent;
-            min-height: 56px;
-        }
-        .gemini-input-wrapper:focus-within {
-            background: white;
-            border-color: #d3e3fd; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        }
-        .gemini-input-wrapper.search-active {
-            background: #fff;
-            box-shadow: 0 0 0 2px #c2e7ff;
-        }
-        
-        .gemini-text-field {
-            flex: 1;
-            background: transparent;
-            border: none;
-            outline: none;
-            font-size: 16px;
-            color: #1f1f1f;
-            line-height: 1.5;
-        }
+        .gemini-input-wrapper { background: #f0f4f9; border-radius: 36px; padding: 8px 8px 8px 16px; display: flex; align-items: center; gap: 4px; transition: all 0.2s ease-in-out; border: 1px solid transparent; min-height: 56px; }
+        .gemini-input-wrapper:focus-within { background: white; border-color: #d3e3fd; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .gemini-input-wrapper.search-active { background: #fff; box-shadow: 0 0 0 2px #c2e7ff; }
+        .gemini-text-field { flex: 1; background: transparent; border: none; outline: none; font-size: 16px; color: #1f1f1f; line-height: 1.5; }
         .gemini-text-field::placeholder { color: #5e5e5e; }
 
-        /* Chat Styles */
-        .chat-msg-user {
-            background: #f0f4f9; color: #1f1f1f;
-            padding: 14px 24px; border-radius: 24px; border-bottom-right-radius: 4px;
-            max-width: 85%; align-self: flex-end; font-size: 16px;
-        }
-        .chat-msg-ai {
-            width: 100%; color: #1f1f1f; font-size: 16px; line-height: 1.7; padding-right: 12px;
-        }
+        .chat-msg-user { background: #f0f4f9; color: #1f1f1f; padding: 14px 24px; border-radius: 24px; border-bottom-right-radius: 4px; max-width: 85%; align-self: flex-end; font-size: 16px; }
+        
+        /* ADJUSTED AI MESSAGE SPACING */
+        .chat-msg-ai { width: 100%; color: #1f1f1f; font-size: 16px; line-height: 1.7; padding-right: 12px; padding-left: 4px; }
+        
         .chat-msg-ai p { margin-bottom: 16px; }
         .chat-msg-ai strong { font-weight: 700; color: #1f1f1f; }
         .chat-msg-ai ul { list-style-type: disc; padding-left: 20px; margin-bottom: 16px; }
         .chat-msg-ai ol { list-style-type: decimal; padding-left: 20px; margin-bottom: 16px; }
         .chat-msg-ai li { margin-bottom: 6px; }
-        .chat-msg-ai h1, .chat-msg-ai h2, .chat-msg-ai h3 { font-family: 'Google Sans', sans-serif; font-weight: 500; margin-top: 20px; margin-bottom: 10px; color: #1f1f1f; }
         .chat-msg-ai code { background: #f0f4f9; padding: 2px 6px; border-radius: 4px; font-family: 'Consolas', monospace; font-size: 0.9em; }
         .chat-msg-ai pre code { background: transparent; padding: 0; color: inherit; }
 
-        /* AI Toolbar (Copy/Read) */
-        .ai-toolbar {
-            display: flex; gap: 10px; margin-top: 4px; margin-left: 0px; opacity: 0; transition: opacity 0.2s;
-        }
-        .chat-msg-ai:hover + .ai-toolbar, .ai-toolbar:hover { opacity: 1; }
-        .ai-tool-btn { 
-            cursor: pointer; color: #5e5e5e; padding: 4px; border-radius: 4px; transition: all 0.2s; 
-        }
+        .ai-toolbar { display: flex; gap: 10px; margin-top: 4px; margin-left: 0px; opacity: 0; transition: opacity 0.2s; }
+        .chat-wrapper:hover .ai-toolbar { opacity: 1; }
+        .ai-tool-btn { cursor: pointer; color: #5e5e5e; padding: 4px; border-radius: 4px; transition: all 0.2s; }
         .ai-tool-btn:hover { background: #f0f4f9; color: #1f1f1f; }
     </style>
 </head>
@@ -189,24 +114,17 @@
             <div class="flex justify-between items-center mb-4">
                 <div class="flex items-center gap-3">
                     <div class="h-10 w-10 bg-gradient-to-br from-blue-600 to-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-sm shadow-sm">JD</div>
-                    <div>
-                        <div class="text-[15px] font-bold text-[#1f1f1f]">Jane Doe</div>
-                        <div class="text-xs text-[#444746]">Posting to <span class="font-bold text-[#0b57d0]">Feed</span></div>
-                    </div>
+                    <div><div class="text-[15px] font-bold text-[#1f1f1f]">Jane Doe</div><div class="text-xs text-[#444746]">Posting to <span class="font-bold text-[#0b57d0]">Feed</span></div></div>
                 </div>
                 <button onclick="closeCompose()" class="icon-btn hover:bg-[#f0f4f9]"><i data-lucide="x" class="w-6 h-6"></i></button>
             </div>
-            
             <textarea id="compose-text" placeholder="Share updates, code, or ideas..." class="w-full min-h-[160px] text-[17px] text-[#1f1f1f] placeholder-[#80868b] border-none outline-none resize-none bg-transparent leading-relaxed"></textarea>
-            
             <div id="media-preview-container" class="hidden mt-3 relative inline-block group">
                 <img id="media-preview-img" src="" class="hidden max-h-56 rounded-2xl border border-[#e0e2e5] shadow-sm">
                 <video id="media-preview-video" src="" class="hidden max-h-56 rounded-2xl border border-[#e0e2e5] shadow-sm" controls></video>
                 <button onclick="removeMedia()" class="absolute -top-2 -right-2 bg-[#303134] text-white rounded-full p-1.5 shadow-md hover:scale-110 transition-transform"><i data-lucide="x" class="w-3 h-3"></i></button>
             </div>
-            
             <input type="file" id="media-input" class="hidden" accept="image/*,video/*" onchange="handleFileSelect(event)">
-            
             <div class="flex items-center justify-between pt-5 mt-2">
                 <div class="flex gap-2">
                     <button onclick="document.getElementById('media-input').click()" class="icon-btn text-[#0b57d0]" title="Media"><i data-lucide="image" class="w-6 h-6"></i></button>
@@ -247,30 +165,21 @@
             <img src="https://i.imghippo.com/files/fRGt5603uII.png" class="w-10 h-10 object-contain">
             <h1 class="text-[24px] google-font text-[#444746] hidden lg:block tracking-tight">Edu<span class="font-medium text-[#1f1f1f]">Link</span></h1>
         </div>
-        
         <button onclick="openCompose()" class="w-14 lg:w-full h-14 lg:h-16 flex items-center justify-center lg:justify-start gap-4 lg:px-6 bg-[#c2e7ff] text-[#001d35] rounded-2xl mb-6 shadow-sm hover:shadow-md hover:bg-[#b3dfff] transition-all group mx-auto lg:mx-0">
-            <i data-lucide="pencil" class="w-6 h-6"></i>
-            <span class="text-[16px] font-medium hidden lg:block">Compose</span>
+            <i data-lucide="pencil" class="w-6 h-6"></i><span class="text-[16px] font-medium hidden lg:block">Compose</span>
         </button>
-
         <nav class="space-y-2 flex-1 px-2 lg:px-0">
             <a href="#" onclick="clearFilter(); return false;" class="flex items-center justify-center lg:justify-start gap-5 px-0 lg:px-6 py-4 bg-[#d3e3fd] text-[#001d35] rounded-full font-medium mx-auto lg:mx-0"><i data-lucide="layout-grid" class="w-6 h-6"></i> <span class="hidden lg:block text-[15px]">Feed</span></a>
             <a href="#" class="flex items-center justify-center lg:justify-start gap-5 px-0 lg:px-6 py-4 text-[#444746] hover:bg-[#e8f0fe] rounded-full font-medium transition-colors mx-auto lg:mx-0"><i data-lucide="hash" class="w-6 h-6"></i> <span class="hidden lg:block text-[15px]">Topics</span></a>
             <a href="#" class="flex items-center justify-center lg:justify-start gap-5 px-0 lg:px-6 py-4 text-[#444746] hover:bg-[#e8f0fe] rounded-full font-medium transition-colors mx-auto lg:mx-0"><i data-lucide="bookmark" class="w-6 h-6"></i> <span class="hidden lg:block text-[15px]">Saved</span></a>
         </nav>
-        
-        <div class="mt-auto mx-2 lg:mx-0">
-             <button class="flex items-center justify-center lg:justify-start gap-5 px-0 lg:px-6 py-4 text-[#444746] hover:bg-[#e8f0fe] rounded-full font-medium transition-colors w-full"><i data-lucide="settings" class="w-6 h-6"></i> <span class="hidden lg:block text-[15px]">Settings</span></button>
-        </div>
+        <div class="mt-auto mx-2 lg:mx-0"><button class="flex items-center justify-center lg:justify-start gap-5 px-0 lg:px-6 py-4 text-[#444746] hover:bg-[#e8f0fe] rounded-full font-medium transition-colors w-full"><i data-lucide="settings" class="w-6 h-6"></i> <span class="hidden lg:block text-[15px]">Settings</span></button></div>
     </aside>
 
     <div id="workspace-layout" class="flex-1 flex min-w-0 gap-4 relative overflow-hidden">
-
         <main id="feed-panel" class="feed-panel bg-white flex flex-col relative overflow-hidden shadow-sm border border-[#e3e3e3]">
             <header class="h-20 flex items-center justify-between px-6 shrink-0 z-20 sticky top-0 bg-white/90 backdrop-blur-md border-b border-[#f0f0f0]">
-                <div class="md:hidden flex items-center gap-3">
-                     <button class="icon-btn"><i data-lucide="menu" class="w-6 h-6"></i></button>
-                </div>
+                <div class="md:hidden flex items-center gap-3"><button class="icon-btn"><i data-lucide="menu" class="w-6 h-6"></i></button></div>
                 <div class="flex-1 max-w-[600px] relative group hidden md:block">
                     <i data-lucide="search" class="absolute left-5 top-3.5 w-5 h-5 text-[#444746] group-focus-within:text-[#0b57d0] transition-colors"></i>
                     <input type="text" placeholder="Search" id="feed-search" onkeyup="filterFeed(this.value)" class="w-full bg-[#f0f4f9] rounded-full py-3.5 pl-14 pr-6 outline-none focus:bg-[#e9eef6] focus:shadow-sm transition-all text-[#1f1f1f] text-[15px]">
@@ -280,22 +189,17 @@
                     <div class="ml-2 h-10 w-10 bg-gradient-to-br from-blue-600 to-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-sm shadow-sm border-2 border-white cursor-pointer hover:shadow-md transition-shadow">JD</div>
                 </div>
             </header>
-
             <div id="filter-banner" class="hidden bg-[#e8f0fe] px-6 py-4 border-b border-[#c2e7ff] flex justify-between items-center animate-fade-in">
                 <span class="text-sm font-bold text-[#0b57d0] flex items-center gap-2"><i data-lucide="filter" class="w-4 h-4"></i> Filter: <span id="filter-tag" class="underline"></span></span>
                 <button onclick="clearFilter()" class="text-xs text-[#0b57d0] hover:bg-[#d3e3fd] px-4 py-2 rounded-full font-bold transition-colors">Clear Filter</button>
             </div>
-
             <div id="feed-container" class="flex-1 overflow-y-auto p-6 space-y-6 bg-[#fff]">
                 <article class="post-card group overflow-hidden cursor-default" id="post-1">
                     <div class="p-6"> 
                         <div class="flex justify-between items-start mb-4">
                             <div class="flex gap-4 items-center">
                                 <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" class="w-12 h-12 rounded-full bg-[#f0f4f9] border border-[#f0f0f0]">
-                                <div>
-                                    <h3 class="font-bold text-[#1f1f1f] text-[16px] google-font hover:underline cursor-pointer">Alex Chen</h3>
-                                    <div class="text-xs text-[#444746] font-medium mt-0.5">Senior Engineer • 2h</div>
-                                </div>
+                                <div><h3 class="font-bold text-[#1f1f1f] text-[16px] google-font hover:underline cursor-pointer">Alex Chen</h3><div class="text-xs text-[#444746] font-medium mt-0.5">Senior Engineer • 2h</div></div>
                             </div>
                             <button class="icon-btn w-9 h-9"><i data-lucide="more-horizontal" class="w-5 h-5"></i></button>
                         </div>
@@ -318,12 +222,8 @@
                             <button class="icon-btn hover:text-[#0b57d0] hover:bg-[#e8f0fe]"><i data-lucide="message-circle" class="w-6 h-6"></i></button>
                         </div>
                         <div class="flex gap-2">
-                            <button onclick="pinPost('post-1', 'Alex Chen')" class="icon-btn hover:bg-gradient-to-r hover:from-indigo-50 hover:to-blue-50 text-[#0b57d0]" title="Analyze with Newton">
-                                <i data-lucide="sparkles" class="w-6 h-6"></i>
-                            </button>
-                            <button onclick="openNotebook('post-1', 'Alex Chen')" class="icon-btn hover:bg-[#f0f4f9] text-[#444746]" title="Take Note">
-                                <i data-lucide="notebook-pen" class="w-6 h-6"></i>
-                            </button>
+                            <button onclick="pinPost('post-1', 'Alex Chen')" class="icon-btn hover:bg-gradient-to-r hover:from-indigo-50 hover:to-blue-50 text-[#0b57d0]" title="Analyze with Newton"><i data-lucide="sparkles" class="w-6 h-6"></i></button>
+                            <button onclick="openNotebook('post-1', 'Alex Chen')" class="icon-btn hover:bg-[#f0f4f9] text-[#444746]" title="Take Note"><i data-lucide="notebook-pen" class="w-6 h-6"></i></button>
                         </div>
                     </div>
                 </article>
@@ -333,184 +233,86 @@
         <aside id="ai-panel" class="ai-panel hidden xl:flex bg-white flex-col overflow-hidden shadow-sm relative border border-[#e3e3e3]">
             <div class="h-20 shrink-0 border-b border-[#f0f0f0] flex items-center justify-between px-6 bg-white/95 backdrop-blur z-20">
                 <div class="flex items-center gap-3">
-                    <img src="https://i.imghippo.com/files/CTS5790tuU.png" class="w-9 h-9 object-contain">
+                    <img src="https://i.imghippo.com/files/XEEq5247S.png" class="w-9 h-9 object-contain">
                     <span class="text-[19px] font-medium text-[#1f1f1f] google-font">Newton</span>
                 </div>
-                <button onclick="toggleNewtonExpand()" class="icon-btn bg-[#f0f4f9] hover:bg-[#e3e3e3] border border-[#e3e3e3]" title="Swap & Expand View">
-                    <i id="expand-icon" data-lucide="maximize-2" class="w-5 h-5 text-[#444746]"></i>
-                </button>
+                <button onclick="toggleNewtonExpand()" class="icon-btn bg-[#f0f4f9] hover:bg-[#e3e3e3] border border-[#e3e3e3]" title="Swap & Expand View"><i id="expand-icon" data-lucide="maximize-2" class="w-5 h-5 text-[#444746]"></i></button>
             </div>
-
             <div class="flex-1 overflow-hidden relative bg-white flex flex-col">
                 <div id="ai-context-chip" class="hidden mx-6 mt-4 bg-[#eff3f8] border border-[#e0e2e5] rounded-2xl p-3 flex items-center justify-between animate-fade-in slide-in-right">
                     <div class="flex items-center gap-3 overflow-hidden">
-                        <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center shrink-0 border border-[#c2e7ff] shadow-sm">
-                            <i data-lucide="paperclip" class="w-4 h-4 text-[#0b57d0]"></i>
-                        </div>
-                        <div class="flex flex-col min-w-0">
-                            <span class="text-[10px] text-[#444746] font-bold uppercase tracking-wider">Active Context</span>
-                            <span class="text-[13px] text-[#1f1f1f] truncate font-bold" id="ai-context-text">Post Data</span>
-                        </div>
+                        <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center shrink-0 border border-[#c2e7ff] shadow-sm"><i data-lucide="paperclip" class="w-4 h-4 text-[#0b57d0]"></i></div>
+                        <div class="flex flex-col min-w-0"><span class="text-[10px] text-[#444746] font-bold uppercase tracking-wider">Active Context</span><span class="text-[13px] text-[#1f1f1f] truncate font-bold" id="ai-context-text">Post Data</span></div>
                     </div>
                     <button onclick="clearContext()" class="icon-btn w-8 h-8"><i data-lucide="x" class="w-4 h-4"></i></button>
                 </div>
-
                 <div class="flex-1 overflow-y-auto p-6" id="chat-history">
-                    <div class="flex flex-col w-full mb-6 fade-in">
-                        <div class="flex items-center gap-2 mb-2">
-                            <img src="https://i.imghippo.com/files/CTS5790tuU.png" class="w-6 h-6 object-contain">
-                        </div>
-                        <div class="chat-msg-ai">
-                            <p>Hello. I'm Newton. I can help you code, search the web, and analyze data.</p>
-                        </div>
+                    <div class="chat-wrapper flex flex-col w-full mb-6 fade-in">
+                        <div class="flex items-center gap-2 mb-2"><img src="https://i.imghippo.com/files/XEEq5247S.png" class="w-6 h-6 object-contain"></div>
+                        <div class="chat-msg-ai"><p>Hello. I'm Newton. I can help you code, search the web, and analyze data.</p></div>
                     </div>
                 </div>
-
                 <div class="p-4 bg-white border-t border-[#f0f0f0]">
                     <div id="search-container" class="gemini-input-wrapper">
-                        
-                        <button class="icon-btn w-10 h-10 hover:bg-[#e0e2e5] shrink-0" title="Add Image">
-                            <i data-lucide="plus" class="w-5 h-5 text-[#444746]"></i>
-                        </button>
-                        
+                        <button class="icon-btn w-10 h-10 hover:bg-[#e0e2e5] shrink-0" title="Add Image"><i data-lucide="plus" class="w-5 h-5 text-[#444746]"></i></button>
                         <input type="text" id="ai-input" placeholder="Ask Newton..." class="gemini-text-field" autocomplete="off">
-                        
-                        <button id="web-search-btn" onclick="toggleWebSearch()" class="icon-btn w-10 h-10 hover:bg-[#e0e2e5] shrink-0" title="Search the Web">
-                            <i data-lucide="globe" class="w-5 h-5 text-[#444746]"></i>
-                        </button>
-
-                        <button id="ai-send-btn" class="icon-btn w-10 h-10 hover:bg-[#e0e2e5] shrink-0 transition-colors">
-                            <i data-lucide="send-horizontal" class="w-5 h-5 text-[#444746]"></i>
-                        </button>
+                        <button id="web-search-btn" onclick="toggleWebSearch()" class="icon-btn w-10 h-10 hover:bg-[#e0e2e5] shrink-0" title="Search the Web"><i data-lucide="globe" class="w-5 h-5 text-[#444746]"></i></button>
+                        <button id="ai-send-btn" class="icon-btn w-10 h-10 hover:bg-[#e0e2e5] shrink-0 transition-colors"><i data-lucide="send-horizontal" class="w-5 h-5 text-[#444746]"></i></button>
                     </div>
-                    <div class="text-center mt-2 flex items-center justify-center gap-2">
-                        <span class="text-[10px] font-medium text-[#444746] opacity-60">Newton may display inaccurate info, so double-check its responses.</span>
-                    </div>
+                    <div class="text-center mt-2 flex items-center justify-center gap-2"><span class="text-[10px] font-medium text-[#444746] opacity-60">Newton may display inaccurate info, so double-check its responses.</span></div>
                 </div>
             </div>
         </aside>
-
     </div>
 
     <script>
         lucide.createIcons();
-        let currentContext = "";
-        let currentMedia = null;
-        let currentMediaType = null;
-        let classifier;
-        let mediaVisionLog = "";
-        let isWebSearchActive = false;
-        let currentUtteranceText = null;
+        let currentContext = "", currentMedia = null, currentMediaType = null;
+        let classifier, mediaVisionLog = "", isWebSearchActive = false;
+        let stopGeneration = false; // INTERRUPT FLAG
+        let abortController = null;
 
-        function setupClassifier() {
-            if(typeof ml5 !== 'undefined') classifier = ml5.imageClassifier('MobileNet', () => console.log("MobileNet Ready"));
-        }
+        function setupClassifier() { if(typeof ml5 !== 'undefined') classifier = ml5.imageClassifier('MobileNet', () => console.log("MobileNet Ready")); }
         setupClassifier();
 
-        // --- SWAP LAYOUT LOGIC ---
         let isSwapped = false;
         function toggleNewtonExpand() {
             const layout = document.getElementById('workspace-layout');
             const icon = document.getElementById('expand-icon');
-            
             isSwapped = !isSwapped;
-            
-            if (isSwapped) {
-                layout.classList.add('swapped');
-                icon.setAttribute('data-lucide', 'minimize-2');
-                showToast("Newton Expanded");
-            } else {
-                layout.classList.remove('swapped');
-                icon.setAttribute('data-lucide', 'maximize-2');
-            }
+            if (isSwapped) { layout.classList.add('swapped'); icon.setAttribute('data-lucide', 'minimize-2'); showToast("Newton Expanded"); } 
+            else { layout.classList.remove('swapped'); icon.setAttribute('data-lucide', 'maximize-2'); }
             lucide.createIcons();
         }
 
-        // --- WEB SEARCH LOGIC ---
         function toggleWebSearch() {
+            isWebSearchActive = !isWebSearchActive;
             const btn = document.getElementById('web-search-btn');
             const container = document.getElementById('search-container');
             const input = document.getElementById('ai-input');
-            
-            isWebSearchActive = !isWebSearchActive;
-            
-            if(isWebSearchActive) {
-                btn.classList.add('active'); // CSS Handles color
-                container.classList.add('search-active');
-                input.placeholder = "Search the web...";
-                showToast("Web Search Active");
-            } else {
-                btn.classList.remove('active');
-                container.classList.remove('search-active');
-                input.placeholder = "Ask Newton...";
-            }
+            if(isWebSearchActive) { btn.classList.add('active'); container.classList.add('search-active'); input.placeholder = "Search the web..."; showToast("Web Search Active"); } 
+            else { btn.classList.remove('active'); container.classList.remove('search-active'); input.placeholder = "Ask Newton..."; }
         }
 
-        // --- SPEECH & COPY LOGIC ---
-        function copyText(text, btn) {
+        function copyText(encodedText, btn) {
+            const text = decodeURIComponent(encodedText);
             navigator.clipboard.writeText(text).then(() => {
                 btn.innerHTML = `<i data-lucide="check" style="width:16px;height:16px;"></i>`;
                 lucide.createIcons();
-                setTimeout(() => { 
-                    btn.innerHTML = `<i data-lucide="copy" style="width:16px;height:16px;"></i>`; 
-                    lucide.createIcons();
-                }, 2000);
+                setTimeout(() => { btn.innerHTML = `<i data-lucide="copy" style="width:16px;height:16px;"></i>`; lucide.createIcons(); }, 2000);
             });
         }
 
-        function speakText(text, btn) {
-            if(window.speechSynthesis.speaking) {
-                window.speechSynthesis.cancel();
-                if(currentUtteranceText === text) {
-                    currentUtteranceText = null;
-                    btn.innerHTML = `<i data-lucide="volume-2" style="width:16px;height:16px;"></i>`;
-                    lucide.createIcons();
-                    return;
-                }
-            }
-            
-            currentUtteranceText = text;
-            // Reset icons
-            document.querySelectorAll('.ai-tool-btn i[data-lucide="square"]').forEach(i => {
-                i.setAttribute('data-lucide', 'volume-2');
-            });
-            
-            const utter = new SpeechSynthesisUtterance(text);
-            const voices = window.speechSynthesis.getVoices();
-            // Try clean English voice
-            const v = voices.find(x => x.name.includes("Google US English")) || voices.find(x => x.lang === 'en-US');
-            if(v) utter.voice = v;
-            
-            utter.onend = () => {
-                btn.innerHTML = `<i data-lucide="volume-2" style="width:16px;height:16px;"></i>`;
-                lucide.createIcons();
-                currentUtteranceText = null;
-            };
-            
-            btn.innerHTML = `<i data-lucide="square" style="width:16px;height:16px;fill:currentColor;"></i>`;
-            lucide.createIcons();
-            window.speechSynthesis.speak(utter);
-        }
-
-        // --- GEMINI CODE BLOCK FORMATTER ---
         function formatGeminiCode(html) {
-            const temp = document.createElement('div');
-            temp.innerHTML = html;
+            const temp = document.createElement('div'); temp.innerHTML = html;
             const pres = temp.querySelectorAll('pre');
             pres.forEach(pre => {
                 const code = pre.querySelector('code');
                 const lang = code ? (code.className.replace('language-', '') || 'Code') : 'Code';
                 const codeText = pre.innerText;
-                const container = document.createElement('div');
-                container.className = 'gemini-code-container';
-                const header = document.createElement('div');
-                header.className = 'gemini-code-header';
-                header.innerHTML = `
-                    <span>${lang}</span>
-                    <div style="display:flex; gap:8px;">
-                        <div class="gemini-code-btn" onclick="copyCode(this, \`${encodeURIComponent(codeText)}\`)"><i data-lucide="copy" style="width:14px;height:14px;"></i> Copy</div>
-                        <div class="gemini-code-btn" onclick="runCode(this)"><i data-lucide="play" style="width:14px;height:14px;"></i> Run</div>
-                    </div>`;
+                const container = document.createElement('div'); container.className = 'gemini-code-container';
+                const header = document.createElement('div'); header.className = 'gemini-code-header';
+                header.innerHTML = `<span>${lang}</span><div style="display:flex; gap:8px;"><div class="gemini-code-btn" onclick="copyText('${encodeURIComponent(codeText)}', this)"><i data-lucide="copy" style="width:14px;height:14px;"></i> Copy</div><div class="gemini-code-btn" onclick="runCode(this)"><i data-lucide="play" style="width:14px;height:14px;"></i> Run</div></div>`;
                 pre.style.margin = '0'; pre.style.borderRadius = '0'; pre.style.border = 'none';
                 container.appendChild(header); container.appendChild(pre.cloneNode(true));
                 pre.replaceWith(container);
@@ -518,33 +320,15 @@
             return temp.innerHTML;
         }
 
-        function copyCode(btn, encodedText) {
-            const text = decodeURIComponent(encodedText);
-            navigator.clipboard.writeText(text).then(() => {
-                const original = btn.innerHTML;
-                btn.innerHTML = `<i data-lucide="check" style="width:14px;height:14px;"></i> Copied`;
-                lucide.createIcons();
-                setTimeout(() => { btn.innerHTML = original; lucide.createIcons(); }, 2000);
-            });
-        }
         function runCode(btn) { showToast("Running Code...", false); setTimeout(() => { showToast("Code Executed successfully"); }, 1000); }
         function showToast(message, isError = false) {
             const toast = document.getElementById('toast');
             const toastMsg = document.getElementById('toast-msg');
             const icon = document.getElementById('toast-icon');
             toastMsg.innerText = message;
-            if (isError) { 
-                toast.style.backgroundColor = '#d93025'; 
-                icon.setAttribute('data-lucide', 'alert-circle'); 
-                icon.classList.remove('text-[#c4eed0]'); 
-                icon.classList.add('text-white'); 
-            } else { 
-                toast.style.backgroundColor = '#303134'; 
-                icon.setAttribute('data-lucide', 'check-circle-2'); 
-                icon.classList.add('text-[#c4eed0]'); 
-            }
-            lucide.createIcons();
-            toast.classList.add('show'); setTimeout(() => { toast.classList.remove('show'); }, 3000);
+            if (isError) { toast.style.backgroundColor = '#d93025'; icon.setAttribute('data-lucide', 'alert-circle'); icon.classList.remove('text-[#c4eed0]'); icon.classList.add('text-white'); } 
+            else { toast.style.backgroundColor = '#303134'; icon.setAttribute('data-lucide', 'check-circle-2'); icon.classList.add('text-[#c4eed0]'); }
+            lucide.createIcons(); toast.classList.add('show'); setTimeout(() => { toast.classList.remove('show'); }, 3000);
         }
 
         function openCompose() { document.getElementById('compose-overlay').classList.remove('opacity-0', 'pointer-events-none'); document.getElementById('compose-modal').classList.remove('scale-95'); }
@@ -556,11 +340,9 @@
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    currentMedia = e.target.result;
-                    currentMediaType = file.type.startsWith('video') ? 'video' : 'image';
+                    currentMedia = e.target.result; currentMediaType = file.type.startsWith('video') ? 'video' : 'image';
                     const container = document.getElementById('media-preview-container');
-                    const img = document.getElementById('media-preview-img');
-                    const vid = document.getElementById('media-preview-video');
+                    const img = document.getElementById('media-preview-img'); const vid = document.getElementById('media-preview-video');
                     if (currentMediaType === 'video') { img.classList.add('hidden'); vid.src = currentMedia; vid.classList.remove('hidden'); } 
                     else { vid.classList.add('hidden'); img.src = currentMedia; img.classList.remove('hidden'); }
                     container.classList.remove('hidden');
@@ -582,82 +364,28 @@
         }
 
         async function publishPost() {
-            const textRaw = document.getElementById('compose-text').value;
-            const btn = document.getElementById('btn-publish');
+            const textRaw = document.getElementById('compose-text').value; const btn = document.getElementById('btn-publish');
             if (!textRaw.trim() && !currentMedia) { showToast("Empty post!", true); return; }
             const originalHtml = btn.innerHTML; btn.innerHTML = `Processing...`; btn.disabled = true;
-            
             mediaVisionLog = "";
-            if (currentMedia) {
-                const el = currentMediaType === 'video' ? document.getElementById('media-preview-video') : document.getElementById('media-preview-img');
-                mediaVisionLog = await analyzeMedia(el);
-            }
-
+            if (currentMedia) { const el = currentMediaType === 'video' ? document.getElementById('media-preview-video') : document.getElementById('media-preview-img'); mediaVisionLog = await analyzeMedia(el); }
             let mediaHTML = "";
-            if(currentMedia) {
-                mediaHTML = currentMediaType === 'video' 
-                    ? `<div class="mt-4 rounded-2xl overflow-hidden border border-[#e0e2e5] relative"><video src="${currentMedia}" class="w-full max-h-[400px]" controls></video><span class="hidden" data-ai-context>Log: ${mediaVisionLog}</span></div>`
-                    : `<div class="mt-4 rounded-2xl overflow-hidden border border-[#e0e2e5] cursor-pointer hover:shadow-md transition-shadow" onclick="openLightbox('${currentMedia}')"><img src="${currentMedia}" class="w-full object-cover max-h-[400px]"><span class="hidden" data-ai-context>Log: ${mediaVisionLog}</span></div>`;
-            }
-            
-            const rendered = marked.parse(textRaw.replace(/#(\w+)/g, '<span class="hashtag" onclick="filterFeed(\'#$1\')">#$1</span>'));
-            const uniqueId = 'post-' + Date.now();
-            
-            const newPost = `
-            <article class="post-card group overflow-hidden fade-in mb-6" id="${uniqueId}">
-                <div class="p-6">
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="flex gap-4 items-center">
-                            <div class="h-10 w-10 bg-gradient-to-br from-blue-600 to-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-sm shadow-sm ring-2 ring-white">JD</div>
-                            <div><h3 class="font-bold text-[#1f1f1f] text-[16px] google-font">Jane Doe</h3><div class="text-xs text-[#444746] font-medium">Just now</div></div>
-                        </div>
-                    </div>
-                    <div class="post-content mt-2"><div class="text-[#1f1f1f] text-[16px] leading-relaxed mb-4">${rendered}</div>${mediaHTML}</div>
-                </div>
-                <div class="border-t border-[#f0f0f0] w-full"></div>
-                <div class="px-6 py-3 flex items-center justify-between">
-                    <div class="flex gap-2">
-                         <button class="icon-btn hover:text-[#d93025] hover:bg-[#ffebee]"><i data-lucide="heart" class="w-6 h-6"></i></button>
-                         <button class="icon-btn hover:text-[#0b57d0] hover:bg-[#e8f0fe]"><i data-lucide="message-circle" class="w-6 h-6"></i></button>
-                    </div>
-                    <div class="flex gap-2">
-                        <button onclick="pinPost('${uniqueId}', 'Jane Doe')" class="icon-btn hover:bg-gradient-to-r hover:from-indigo-50 hover:to-blue-50 text-[#0b57d0]" title="Analyze with Newton">
-                             <i data-lucide="sparkles" class="w-6 h-6"></i>
-                        </button>
-                        <button onclick="openNotebook('${uniqueId}', 'Jane Doe')" class="icon-btn hover:bg-[#f0f4f9] text-[#444746]" title="Take Note"><i data-lucide="notebook-pen" class="w-6 h-6"></i></button>
-                    </div>
-                </div>
-            </article>`;
-
+            if(currentMedia) { mediaHTML = currentMediaType === 'video' ? `<div class="mt-4 rounded-2xl overflow-hidden border border-[#e0e2e5] relative"><video src="${currentMedia}" class="w-full max-h-[400px]" controls></video><span class="hidden" data-ai-context>Log: ${mediaVisionLog}</span></div>` : `<div class="mt-4 rounded-2xl overflow-hidden border border-[#e0e2e5] cursor-pointer hover:shadow-md transition-shadow" onclick="openLightbox('${currentMedia}')"><img src="${currentMedia}" class="w-full object-cover max-h-[400px]"><span class="hidden" data-ai-context>Log: ${mediaVisionLog}</span></div>`; }
+            const rendered = marked.parse(textRaw.replace(/#(\w+)/g, '<span class="hashtag" onclick="filterFeed(\'#$1\')">#$1</span>')); const uniqueId = 'post-' + Date.now();
+            const newPost = `<article class="post-card group overflow-hidden fade-in mb-6" id="${uniqueId}"><div class="p-6"><div class="flex justify-between items-start mb-4"><div class="flex gap-4 items-center"><div class="h-10 w-10 bg-gradient-to-br from-blue-600 to-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-sm shadow-sm ring-2 ring-white">JD</div><div><h3 class="font-bold text-[#1f1f1f] text-[16px] google-font">Jane Doe</h3><div class="text-xs text-[#444746] font-medium">Just now</div></div></div></div><div class="post-content mt-2"><div class="text-[#1f1f1f] text-[16px] leading-relaxed mb-4">${rendered}</div>${mediaHTML}</div></div><div class="border-t border-[#f0f0f0] w-full"></div><div class="px-6 py-3 flex items-center justify-between"><div class="flex gap-2"><button class="icon-btn hover:text-[#d93025] hover:bg-[#ffebee]"><i data-lucide="heart" class="w-6 h-6"></i></button><button class="icon-btn hover:text-[#0b57d0] hover:bg-[#e8f0fe]"><i data-lucide="message-circle" class="w-6 h-6"></i></button></div><div class="flex gap-2"><button onclick="pinPost('${uniqueId}', 'Jane Doe')" class="icon-btn hover:bg-gradient-to-r hover:from-indigo-50 hover:to-blue-50 text-[#0b57d0]" title="Analyze with Newton"><i data-lucide="sparkles" class="w-6 h-6"></i></button><button onclick="openNotebook('${uniqueId}', 'Jane Doe')" class="icon-btn hover:bg-[#f0f4f9] text-[#444746]" title="Take Note"><i data-lucide="notebook-pen" class="w-6 h-6"></i></button></div></div></article>`;
             document.getElementById('feed-container').insertAdjacentHTML('afterbegin', newPost);
             document.getElementById('compose-text').value = ""; removeMedia(); btn.innerHTML = originalHtml; btn.disabled = false; closeCompose(); showToast("Posted!"); lucide.createIcons();
         }
 
-        function filterFeed(tag) {
-            const term = tag.toLowerCase();
-            document.getElementById('filter-banner').classList.remove('hidden'); document.getElementById('filter-tag').innerText = tag;
-            document.querySelectorAll('.post-card').forEach(p => p.classList.toggle('hidden', !p.innerText.toLowerCase().includes(term)));
-        }
+        function filterFeed(tag) { const term = tag.toLowerCase(); document.getElementById('filter-banner').classList.remove('hidden'); document.getElementById('filter-tag').innerText = tag; document.querySelectorAll('.post-card').forEach(p => p.classList.toggle('hidden', !p.innerText.toLowerCase().includes(term))); }
         function clearFilter() { document.querySelectorAll('.post-card').forEach(p => p.classList.remove('hidden')); document.getElementById('filter-banner').classList.add('hidden'); document.getElementById('feed-search').value = ""; }
-        
         function openLightbox(src) { document.getElementById('lightbox-wrapper').innerHTML = `<img src="${src}" class="max-w-full max-h-[90vh] rounded-lg shadow-2xl object-contain">`; document.getElementById('lightbox').classList.add('active'); document.getElementById('lightbox').classList.remove('pointer-events-none'); document.getElementById('lightbox').classList.remove('opacity-0'); }
         function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); document.getElementById('lightbox').classList.add('pointer-events-none'); document.getElementById('lightbox').classList.add('opacity-0'); }
-
-        function openNotebook(pid, author) {
-            const p = document.getElementById(pid); const content = p.querySelector('.post-content').cloneNode(true); content.querySelectorAll('button').forEach(x => x.remove());
-            const src = document.getElementById('notebook-source-content'); src.innerHTML = `<div class="font-bold border-b pb-2 mb-2 text-[#0b57d0]">Source: Post by ${author}</div>`; src.appendChild(content);
-            document.getElementById('notebook-sheet').classList.add('notebook-active'); document.getElementById('notebook-backdrop').classList.add('active');
-        }
+        function openNotebook(pid, author) { const p = document.getElementById(pid); const content = p.querySelector('.post-content').cloneNode(true); content.querySelectorAll('button').forEach(x => x.remove()); const src = document.getElementById('notebook-source-content'); src.innerHTML = `<div class="font-bold border-b pb-2 mb-2 text-[#0b57d0]">Source: Post by ${author}</div>`; src.appendChild(content); document.getElementById('notebook-sheet').classList.add('notebook-active'); document.getElementById('notebook-backdrop').classList.add('active'); }
         function closeNotebook() { document.getElementById('notebook-sheet').classList.remove('notebook-active'); document.getElementById('notebook-backdrop').classList.remove('active'); }
         function saveNote() { if(!document.getElementById('note-body').value.trim()) { showToast("Empty Note!", true); return; } showToast("Note Saved!"); setTimeout(closeNotebook, 500); }
-        async function generateAiNotes() {
-            const txt = document.getElementById('notebook-source-content').innerText; if(!txt) return; const btn = document.getElementById('btn-use-ai'); const orig = btn.innerHTML;
-            btn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> Processing`; btn.disabled = true; lucide.createIcons();
-            try { const res = await fetch(`https://text.pollinations.ai/${encodeURIComponent("Summarize concisely: " + txt)}?model=openai`); document.getElementById('note-body').value += "\n\n" + await res.text(); } catch(e) { showToast("AI Error", true); }
-            btn.innerHTML = orig; btn.disabled = false; lucide.createIcons();
-        }
+        async function generateAiNotes() { const txt = document.getElementById('notebook-source-content').innerText; if(!txt) return; const btn = document.getElementById('btn-use-ai'); const orig = btn.innerHTML; btn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> Processing`; btn.disabled = true; lucide.createIcons(); try { const res = await fetch(`https://text.pollinations.ai/${encodeURIComponent("Summarize concisely: " + txt)}?model=openai`); document.getElementById('note-body').value += "\n\n" + await res.text(); } catch(e) { showToast("AI Error", true); } btn.innerHTML = orig; btn.disabled = false; lucide.createIcons(); }
 
-        // --- NEWTON LOGIC ---
         function pinPost(pid, author) {
             if(window.innerWidth < 1280) { showToast("AI Chat Desktop Only", true); return; }
             const p = document.getElementById(pid); let content = p.querySelector('.post-content').innerText.replace(/\s+/g, ' ');
@@ -669,59 +397,76 @@
         }
         function clearContext() { currentContext = ""; document.getElementById('ai-context-chip').classList.add('hidden'); }
         
+        function updateSendButtonToStop() {
+            const btn = document.getElementById('ai-send-btn');
+            btn.innerHTML = `<i data-lucide="square" style="width:20px;height:20px;fill:currentColor;"></i>`;
+            btn.onclick = stopGenerating;
+            btn.classList.add('text-red-500');
+            lucide.createIcons();
+        }
+
+        function resetSendButton() {
+            const btn = document.getElementById('ai-send-btn');
+            btn.innerHTML = `<i data-lucide="send-horizontal" class="w-5 h-5 text-[#444746]"></i>`;
+            btn.onclick = sendMessageAction;
+            btn.classList.remove('text-red-500');
+            lucide.createIcons();
+        }
+
+        function stopGenerating() {
+            stopGeneration = true;
+            if(abortController) abortController.abort();
+            resetSendButton();
+            const thinking = document.querySelector('[id^="thinking-"]');
+            if(thinking) thinking.remove();
+            showToast("Generation Stopped");
+        }
+
         async function addMessage(text, isUser) {
             const h = document.getElementById('chat-history'); 
             const d = document.createElement('div'); 
-            d.className = isUser ? 'flex justify-end fade-in mb-6' : 'flex flex-col fade-in w-full mb-6';
+            d.className = isUser ? 'chat-wrapper flex justify-end fade-in mb-6' : 'chat-wrapper flex flex-col fade-in w-full mb-6';
             
             if(isUser) {
                 d.innerHTML = `<div class="chat-msg-user">${text}</div>`;
                 h.appendChild(d);
             } else {
-                // Prepare AI container
                 d.innerHTML = `
-                    <div class="flex items-center gap-2 mb-2">
-                        <img src="https://i.imghippo.com/files/CTS5790tuU.png" class="w-6 h-6 object-contain">
-                    </div>
-                    <div class="chat-msg-ai" id="ai-response-${Date.now()}"></div>
+                    <div class="flex items-center gap-4 mb-2"><img src="https://i.imghippo.com/files/XEEq5247S.png" class="w-6 h-6 object-contain"></div>
+                    <div class="chat-msg-ai"></div>
                     <div class="ai-toolbar">
-                        <div class="ai-tool-btn" onclick="copyText(\`${encodeURIComponent(text)}\`, this)"><i data-lucide="copy" style="width:16px;height:16px;"></i></div>
-                        <div class="ai-tool-btn" onclick="speakText(\`${encodeURIComponent(text)}\`, this)"><i data-lucide="volume-2" style="width:16px;height:16px;"></i></div>
+                        <div class="ai-tool-btn" onclick="copyText('${encodeURIComponent(text)}', this)"><i data-lucide="copy" style="width:16px;height:16px;"></i></div>
                     </div>`;
                 h.appendChild(d);
+                lucide.createIcons();
                 
-                // FASTER STREAMING LOGIC (15ms delay)
                 const contentDiv = d.querySelector('.chat-msg-ai');
                 const words = text.split(' ');
                 let currentText = "";
-                
                 for(let i=0; i<words.length; i++) {
+                    if(stopGeneration) break; 
                     currentText += words[i] + " ";
                     contentDiv.innerHTML = marked.parse(currentText);
                     h.scrollTop = h.scrollHeight;
-                    // Reduced delay for faster "bit fast" speed
                     await new Promise(resolve => setTimeout(resolve, 15)); 
                 }
-                // Final pass to format code blocks
                 contentDiv.innerHTML = formatGeminiCode(marked.parse(text));
+                lucide.createIcons();
             }
-            h.scrollTop = h.scrollHeight; lucide.createIcons();
+            h.scrollTop = h.scrollHeight;
         }
 
-        document.getElementById('ai-send-btn').addEventListener('click', async () => {
+        async function sendMessageAction() {
             const inp = document.getElementById('ai-input'); const txt = inp.value.trim(); if(!txt) return;
             addMessage(txt, true); inp.value = ""; 
             
-            // SHOW "THINKING..." INDICATOR - GEMINI STYLE
+            stopGeneration = false; 
+            updateSendButtonToStop(); 
+            abortController = new AbortController(); 
+
             const thinkingId = 'thinking-' + Date.now();
             const chatContainer = document.getElementById('chat-history');
-            const thinkingHTML = `
-                <div id="${thinkingId}" class="flex flex-col w-full mb-6 fade-in">
-                    <div class="flex items-center gap-2 mb-2">
-                        <img src="https://i.imghippo.com/files/CTS5790tuU.png" class="w-6 h-6 object-contain animate-pulse">
-                        <span class="text-sm text-[#444746] font-medium animate-pulse">Thinking...</span>
-                    </div>
-                </div>`;
+            const thinkingHTML = `<div id="${thinkingId}" class="flex flex-col w-full mb-6 fade-in"><div class="flex items-center gap-4 mb-2"><img src="https://i.imghippo.com/files/XEEq5247S.png" class="w-6 h-6 object-contain animate-pulse"><span class="text-sm text-[#444746] font-medium animate-pulse">Thinking...</span></div></div>`;
             chatContainer.insertAdjacentHTML('beforeend', thinkingHTML);
             chatContainer.scrollTop = chatContainer.scrollHeight;
 
@@ -732,27 +477,29 @@
                 document.getElementById('chat-history').appendChild(loadingDiv); lucide.createIcons();
             }
 
-            // SYSTEM PROMPT FOR IDENTITY
             let system = "You are Newton, made by Gravitas. Your founder is Ngawang Tshogyal Phuentshok (8th grade student at Royal Academy developing EduLink). Co-founder: Sonam Rigsel. Researchers: Jigdral Namgyal, Jampel Dorji. Provide clear, helpful, expert answers using Markdown.";
             let q = system + (currentContext ? " Context: " + currentContext : "") + " User: " + txt;
             if(isWebSearchActive) q = "Search the web and answer: " + q;
 
             try { 
-                const res = await fetch(`https://text.pollinations.ai/${encodeURIComponent(q)}?model=openai`); 
+                const res = await fetch(`https://text.pollinations.ai/${encodeURIComponent(q)}?model=openai`, { signal: abortController.signal }); 
                 const ans = await res.text();
                 
-                // Remove Loading states
                 if(document.getElementById('web-searching')) document.getElementById('web-searching').remove();
-                document.getElementById(thinkingId).remove();
+                if(document.getElementById(thinkingId)) document.getElementById(thinkingId).remove();
                 
-                await addMessage(ans, false); 
+                if(!stopGeneration) await addMessage(ans, false); 
             } catch(e) { 
                 if(document.getElementById('web-searching')) document.getElementById('web-searching').remove();
-                document.getElementById(thinkingId).remove();
-                addMessage("Connection error.", false); 
+                if(document.getElementById(thinkingId)) document.getElementById(thinkingId).remove();
+                if(e.name !== 'AbortError') addMessage("Connection error.", false); 
+            } finally {
+                resetSendButton(); 
             }
-        });
-        document.getElementById('ai-input').addEventListener('keypress', (e) => { if(e.key==='Enter') document.getElementById('ai-send-btn').click(); });
+        }
+
+        document.getElementById('ai-send-btn').onclick = sendMessageAction;
+        document.getElementById('ai-input').addEventListener('keypress', (e) => { if(e.key==='Enter') sendMessageAction(); });
     </script>
 </body>
 </html>
